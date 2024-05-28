@@ -7,6 +7,7 @@ import styled from "styled-components";
 import { PathFinderStep } from "./PathFinder";
 import { SpeechOutputProvider } from "@/core/modules/speech/SpeechProviders";
 import { IForwarding } from "@/core/type/IForwarding";
+import { VibrationProvider } from "@/core/modules/vibration/VibrationProvider";
 
 
 interface ReservationBusConfirmProps {
@@ -65,6 +66,11 @@ export default function ReservationBusConfirm({ setStep, forwarding }: Reservati
 
 
     // effect
+    useEffect(() => {
+        VibrationProvider.vibrate(500);
+    }, []);
+
+
     useEffect(() => {
         handleTouch();
     }, [handleTouch])

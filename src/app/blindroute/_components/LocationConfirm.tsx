@@ -7,6 +7,7 @@ import 'swiper/css';
 import styled from "styled-components";
 import { PathFinderStep } from "./PathFinder";
 import { SpeechOutputProvider } from "@/core/modules/speech/SpeechProviders";
+import { VibrationProvider } from "@/core/modules/vibration/VibrationProvider";
 
 
 interface LocationConfirmProps {
@@ -62,6 +63,11 @@ export default function LocationConfirm({ locations, setStep }: LocationConfirmP
 
 
     // effect
+    useEffect(() => {
+        VibrationProvider.vibrate(500);
+    }, []);
+
+
     useEffect(() => {
         handleTouch();
     }, [handleTouch]);

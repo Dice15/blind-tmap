@@ -10,6 +10,7 @@ import { IForwarding } from "@/core/type/IForwarding";
 import { IBusArrival } from "@/core/type/IBusArrival";
 import { getBusArrival } from "../_functions/getBusArrival";
 import LoadingAnimation from "@/app/_components/LoadingAnimation";
+import { VibrationProvider } from "@/core/modules/vibration/VibrationProvider";
 
 
 interface WaitingBusProps {
@@ -50,10 +51,12 @@ export default function WaitingBus({ setStep, forwarding, setOnBoardVehId }: Wai
         }
 
         if (busArrival) {
-            SpeechOutputProvider.speak("버스가 도착했습니다.").then(() => {
+            VibrationProvider.vibrate(8000);
+            setTimeout(() => {
                 setOnBoardVehId(busArrival.busVehId1);
                 setStep("reservationDesConfirm");
-            });
+            }, 8000);
+            SpeechOutputProvider.speak("버스가 도착했습니다.");
         }
 
     }, [setStep, setOnBoardVehId, busArrival]);
@@ -102,6 +105,11 @@ export default function WaitingBus({ setStep, forwarding, setOnBoardVehId }: Wai
 
 
     // effect
+    useEffect(() => {
+        VibrationProvider.vibrate(500);
+    }, []);
+
+
     useEffect(() => {
         if (isLoading && forwarding && busArrival) {
             setIsLoading(false);

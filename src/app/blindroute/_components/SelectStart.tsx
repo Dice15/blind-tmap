@@ -108,6 +108,11 @@ export default function SelectStart({ locations, setStep, setStart }: SelectStar
 
     // effect
     useEffect(() => {
+        VibrationProvider.vibrate(500);
+    }, []);
+
+
+    useEffect(() => {
         if (locations && locations.start !== "") {
             getBusStation(locations.start).then((value) => {
                 if (value.data.stations.length > 0) {

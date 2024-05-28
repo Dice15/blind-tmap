@@ -110,6 +110,11 @@ export default function RoutingConfirm({ setStep, start, destination, routing, s
 
     // effect
     useEffect(() => {
+        VibrationProvider.vibrate(500);
+    }, []);
+
+
+    useEffect(() => {
         setRouting(null);
         if (start && destination) {
             getRoute(start, destination).then((response) => {

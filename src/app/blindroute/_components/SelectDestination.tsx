@@ -109,6 +109,11 @@ export default function SelectDestination({ locations, setStep, setDestination }
 
     // effect
     useEffect(() => {
+        VibrationProvider.vibrate(500);
+    }, []);
+
+
+    useEffect(() => {
         if (locations && locations.destination !== "") {
             getBusStation(locations.destination).then((value) => {
                 if (value.data.stations.length > 0) {
