@@ -1,4 +1,4 @@
-import styles from "@/app/passenger/reserve-bus/page.module.css";
+import styles from "@/app/chatbot/page.module.css";
 import ChatAdot from "./_components/ChatAdot";
 
 export default async function ChatBotPage() {
