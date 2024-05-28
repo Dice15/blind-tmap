@@ -137,7 +137,7 @@ export default function RoutingConfirm({ setStep, start, destination, routing, s
                         slidesPerView={1}
                         spaceBetween={50}
                         onInit={handleInitSpeak}
-                        onSlideChange={handleVerticalSwipe}
+                        onSlideChangeTransitionEnd={handleVerticalSwipe}
                         onSliderMove={handleVerticalSliding}
                         speed={300}
                         loop={routings.length > 1 ? true : false}
@@ -158,7 +158,7 @@ export default function RoutingConfirm({ setStep, start, destination, routing, s
                                     </CostInfo>
                                     {routing.forwarding.map((forwarding, index) => (
                                         <StationInfo key={index}>
-                                            {`${forwarding.fromStationNm} - ${forwarding.busRouteNm} (${forwarding.busRouteDir} 방면)`}
+                                            {`${index + 1}. ${forwarding.fromStationNm}`}
                                         </StationInfo>
                                     ))}
                                 </RoutingInfo>
@@ -208,7 +208,7 @@ const RoutingInfo = styled.div`
 const ForwardingInfo = styled.h1` 
     text-align: center;
     margin-bottom: 8vw;
-    font-size: 8.5vw;
+    font-size: 7.5vw;
     font-weight: bold;
     cursor: pointer;
     user-select: none;
@@ -217,7 +217,7 @@ const ForwardingInfo = styled.h1`
 const CostInfo = styled.h3`
     margin-bottom: 8vw;
     text-align: center;
-    font-size: 6vw;
+    font-size: 5vw;
     font-weight: bold;
     cursor: pointer;
     user-select: none;
@@ -226,7 +226,7 @@ const CostInfo = styled.h3`
 const StationInfo = styled.h3`
     margin-bottom: 2vw;
     text-align: center;
-    font-size: 6vw;
+    font-size: 5vw;
     font-weight: bold;
     cursor: pointer;
     user-select: none;

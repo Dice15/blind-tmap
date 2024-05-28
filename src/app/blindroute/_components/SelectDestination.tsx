@@ -141,7 +141,7 @@ export default function SelectDestination({ locations, setStep, setDestination }
                         slidesPerView={1}
                         spaceBetween={50}
                         onInit={handleInitSpeak}
-                        onSlideChange={handleVerticalSwipe}
+                        onSlideChangeTransitionEnd={handleVerticalSwipe}
                         onSliderMove={handleVerticalSliding}
                         speed={300}
                         loop={stations.length > 1 ? true : false}
@@ -206,7 +206,7 @@ const StationInfo = styled.div`
 const StationName = styled.h1` 
     text-align: center;
     margin-bottom: 8vw;
-    font-size: 8.5vw;
+    font-size: 7.5vw;
     font-weight: bold;
     cursor: pointer;
     user-select: none;
@@ -215,7 +215,7 @@ const StationName = styled.h1`
 
 const StationDirection = styled.h3`
     text-align: center;
-    font-size: 6vw;
+    font-size: 5vw;
     font-weight: bold;
     cursor: pointer;
     user-select: none;

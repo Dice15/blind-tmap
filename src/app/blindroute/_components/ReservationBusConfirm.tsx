@@ -126,7 +126,7 @@ const ReservationInfo = styled.div`
 const StationInfo = styled.h1` 
     text-align: center;
     margin-bottom: 8vw;
-    font-size: 8.5vw;
+    font-size: 7.5vw;
     font-weight: bold;
     cursor: pointer;
     user-select: none;
@@ -135,7 +135,7 @@ const StationInfo = styled.h1`
 const BusInfo = styled.h3`
     margin-bottom: 5%;
     text-align: center;
-    font-size: 6vw;
+    font-size: 5vw;
     font-weight: bold;
     cursor: pointer;
     user-select: none;

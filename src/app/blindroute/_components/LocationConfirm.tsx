@@ -123,7 +123,7 @@ const LocationInfo = styled.div`
 const LocationName = styled.h3`
     margin-bottom: 8vw;
     text-align: center;
-    font-size: 6vw;
+    font-size: 5vw;
     font-weight: bold;
     cursor: pointer;
     user-select: none;

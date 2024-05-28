@@ -159,7 +159,7 @@ const Title = styled.div`
     border-bottom: 1px dashed var(--main-border-color);
     margin-bottom: 4px;
     padding: 10px;
-    font-size: 10vw;
+    font-size: 8vw;
     font-weight: bold;
     text-align: center;
     cursor: pointer;
