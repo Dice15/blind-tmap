@@ -9,3 +9,10 @@
     padding: 0;
     border: 0;
 }
+
+html,
+body {
+    overscroll-behavior: none;
+    height: 100%;
+    overflow: hidden;
+}
