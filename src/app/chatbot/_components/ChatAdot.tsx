@@ -8,6 +8,7 @@ import LoadingAnimation from "@/app/_components/LoadingAnimation";
 import { loadChat } from "../_functions/loadChat";
 import { sendMessage } from "../_functions/sendMessage";
 import { useRouter } from "next/navigation";
+import { VibrationProvider } from "@/core/modules/vibration/VibrationProvider";
 
 
 export default function ChatAdot() {
@@ -80,6 +81,7 @@ export default function ChatAdot() {
 
 
     const handleSubmitSpeak = useCallback(() => {
+        VibrationProvider.vibrate(500);
         SpeechOutputProvider.stopSpeak();
         SpeechInputProvider.startRecognition((result: string) => {
             const maxLength = 30;
