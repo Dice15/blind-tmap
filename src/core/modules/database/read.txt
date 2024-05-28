@@ -1,0 +1,21 @@
+// global.d.ts
+import { MongoClient } from 'mongodb';
+declare global {
+    namespace globalThis {
+        var _mongo: MongoClient | undefined;
+        var _mongoUri: string | undefined;
+    }
+}
+
+// env.d.ts
+namespace NodeJS {
+    interface ProcessEnv {
+        "환경변수 이름" : string;
+    }
+}
+
+// .env.local
+"환경변수 이름":"대충 환경 변수";
+
+// tsconfig.json
+"include": ["global.d.ts", "env.d.ts"]

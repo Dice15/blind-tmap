@@ -1,0 +1,34 @@
+.wrapper {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.btnOps {
+    height: calc(calc(70vw * 0.3) - 4px);
+    width: calc(85vw - 4px);
+    border: 2px solid var(--main-border-color);
+    margin-bottom: 7.5vw;
+    font-size: 6.5vw;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: var(--main-color);
+    color: var(--main-font-color);
+}
+
+.btnAuth {
+    height: calc(calc(70vw * 0.3) - 4px);
+}
+
+.linkOps {
+    text-decoration: none;
+}

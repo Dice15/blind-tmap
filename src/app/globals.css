@@ -1,0 +1,11 @@
+:root {
+    --main-color: #FFFFFF;
+    --main-border-color: #000000;
+    --main-font-color: #000000;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
