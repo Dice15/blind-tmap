@@ -44,13 +44,17 @@ export default function SelectStart({ locations, setStep, setStart }: SelectStar
 
     // handler
     const handleGoBack = useCallback(() => {
-        setStep("locationConfirm");
+        SpeechOutputProvider.speak(" ").then(() => {
+            setStep("locationConfirm");
+        });
     }, [setStep]);
 
 
     const handleGoNext = useCallback(() => {
-        setStart(stations[stationInfoIndex.current]);
-        setStep("selectDestination");
+        SpeechOutputProvider.speak(" ").then(() => {
+            setStart(stations[stationInfoIndex.current]);
+            setStep("selectDestination");
+        });
     }, [setStart, setStep, stations]);
 
 

@@ -23,12 +23,16 @@ export default function ReservationBusConfirm({ setStep, forwarding }: Reservati
 
     // handler
     const handleGoBack = useCallback(() => {
-        setStep("locationConfirm");
+        SpeechOutputProvider.speak(" ").then(() => {
+            setStep("locationConfirm");
+        });
     }, [setStep]);
 
 
     const handleGoNext = useCallback(() => {
-        setStep("waitingBus");
+        SpeechOutputProvider.speak(" ").then(() => {
+            setStep("waitingBus");
+        });
     }, [setStep]);
 
 

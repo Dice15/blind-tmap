@@ -3,16 +3,16 @@ import { getToken } from 'next-auth/jwt';
 
 
 export async function middleware(request: NextRequest) {
-    // // 정적 파일이나 내부 요청이 아닌 경우 추가 처리 수행
-    // if (!isInternalOrStaticRequest(request)) {
-    //     // 로그인이 필요한 페이지에 대한 인증 확인
-    //     if (!isAPIRequest(request) && isRequireAuthentication(request)) {
-    //         // 사용자 인증이 되지 않은 경우 로그인 페이지로 리다이렉트
-    //         if (!(await isUserAuthenticated(request))) {
-    //             return NextResponse.redirect(new URL(getHostUrl(request)));
-    //         }
-    //     }
-    // }
+    // 정적 파일이나 내부 요청이 아닌 경우 추가 처리 수행
+    if (!isInternalOrStaticRequest(request)) {
+        // 로그인이 필요한 페이지에 대한 인증 확인
+        if (!isAPIRequest(request) && isRequireAuthentication(request)) {
+            // 사용자 인증이 되지 않은 경우 로그인 페이지로 리다이렉트
+            if (!(await isUserAuthenticated(request))) {
+                return NextResponse.redirect(new URL(getHostUrl(request)));
+            }
+        }
+    }
     return NextResponse.next();
 }
 

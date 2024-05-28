@@ -40,13 +40,17 @@ export default function RoutingConfirm({ setStep, start, destination, routing, s
 
     // handler
     const handleGoBack = useCallback(() => {
-        setStep("locationConfirm");
+        SpeechOutputProvider.speak(" ").then(() => {
+            setStep("locationConfirm");
+        });
     }, [setStep]);
 
 
     const handleGoNext = useCallback(() => {
-        setRouting(routings[routingInfoIndex.current])
-        setStep("reservationBusConfirm");
+        SpeechOutputProvider.speak(" ").then(() => {
+            setRouting(routings[routingInfoIndex.current])
+            setStep("reservationBusConfirm");
+        });
     }, [setStep, setRouting, routings]);
 
 

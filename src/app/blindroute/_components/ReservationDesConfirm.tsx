@@ -23,12 +23,16 @@ export default function ReservationDesConfirm({ setStep, forwarding }: Reservati
 
     // handler
     const handleGoBack = useCallback(() => {
-        setStep("locationConfirm");
+        SpeechOutputProvider.speak(" ").then(() => {
+            setStep("locationConfirm");
+        });
     }, [setStep]);
 
 
     const handleGoNext = useCallback(() => {
-        setStep("waitingDestination");
+        SpeechOutputProvider.speak(" ").then(() => {
+            setStep("waitingDestination");
+        });
     }, [setStep]);
 
 

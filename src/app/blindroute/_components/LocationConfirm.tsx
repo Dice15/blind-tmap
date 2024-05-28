@@ -30,12 +30,16 @@ export default function LocationConfirm({ locations, setStep }: LocationConfirmP
 
     // handler
     const handleGoBack = useCallback(() => {
-        router.replace('/chatbot');
+        SpeechOutputProvider.speak(" ").then(() => {
+            router.replace('/chatbot');
+        });
     }, [router]);
 
 
     const handleGoNext = useCallback(() => {
-        setStep("selectStart");
+        SpeechOutputProvider.speak(" ").then(() => {
+            setStep("selectStart");
+        });
     }, [setStep]);
 
 
@@ -117,9 +121,9 @@ const LocationInfo = styled.div`
 `;
 
 const LocationName = styled.h3`
-    margin-bottom: 5%;
+    margin-bottom: 7%;
     text-align: center;
-    font-size: 4vw;
+    font-size: 6vw;
     font-weight: bold;
     cursor: pointer;
     user-select: none;

@@ -44,13 +44,17 @@ export default function SelectDestination({ locations, setStep, setDestination }
 
     // handler
     const handleGoBack = useCallback(() => {
-        setStep("selectStart");
+        SpeechOutputProvider.speak(" ").then(() => {
+            setStep("selectStart");
+        });
     }, [setStep]);
 
 
     const handleGoNext = useCallback(() => {
-        setDestination(stations[stationInfoIndex.current]);
-        setStep("routingConfirm");
+        SpeechOutputProvider.speak(" ").then(() => {
+            setDestination(stations[stationInfoIndex.current]);
+            setStep("routingConfirm");
+        });
     }, [setDestination, setStep, stations]);
 
 

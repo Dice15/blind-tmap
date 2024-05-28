@@ -86,9 +86,10 @@ export default function ChatAdot() {
             const inputText = Array.from(result).slice(0, maxLength).join('');
             setUserMessage(inputText);
             setGptMessage("");
+            handleSendMessage(inputText);
             if (inputText.length === maxLength) SpeechInputProvider.stopRecognition();
         });
-    }, []);
+    }, [handleSendMessage]);
 
 
     // effect
