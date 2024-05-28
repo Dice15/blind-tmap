@@ -94,11 +94,9 @@ export default function ChatAdot() {
 
     // effect
     useEffect(() => {
-        SpeechOutputProvider.speak("")
-            .then(() => {
-                loadChat().then(value => {
-                    setThreadId(value.data.threadId);
-                });
+        loadChat()
+            .then(value => {
+                setThreadId(value.data.threadId);
             })
             .then(() => {
                 setGptMessage("안녕하세요! 무엇을 도와드릴까요?");
