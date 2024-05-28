@@ -12,5 +12,5 @@ export function numberToKorean(num: number) {
         "여든한", "여든두", "여든세", "여든네", "여든다섯", "여든여섯", "여든일곱", "여든여덟", "여든아홉", "아흔",
         "아흔한", "아흔두", "아흔세", "아흔네", "아흔다섯", "아흔여섯", "아흔일곱", "아흔여덟", "아흔아홉", "백"
     ];
-    return koreanNumbers[num - 1] || `${num}번째`;
+    return `${koreanNumbers[num] || num}번째`;
 };

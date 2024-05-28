@@ -158,7 +158,7 @@ export default function RoutingConfirm({ setStep, start, destination, routing, s
                                     </CostInfo>
                                     {routing.forwarding.map((forwarding, index) => (
                                         <StationInfo key={index}>
-                                            {`${index + 1}. ${forwarding.fromStationNm}`}
+                                            {`${index + 1}) ${forwarding.fromStationNm}`}
                                         </StationInfo>
                                     ))}
                                 </RoutingInfo>
