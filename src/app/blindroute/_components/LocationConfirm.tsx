@@ -121,7 +121,7 @@ const LocationInfo = styled.div`
 `;
 
 const LocationName = styled.h3`
-    margin-bottom: 7%;
+    margin-bottom: 8vw;
     text-align: center;
     font-size: 6vw;
     font-weight: bold;

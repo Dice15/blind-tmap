@@ -12,6 +12,7 @@ import { IRouting } from "@/core/type/IRouting";
 import LoadingAnimation from "@/app/_components/LoadingAnimation";
 import { getRoute } from "../_functions/getRouteByLocation";
 import { VibrationProvider } from "@/core/modules/vibration/VibrationProvider";
+import { numberToKorean } from "../_functions/numberToKorean";
 
 
 interface RoutingConfirmProps {
@@ -57,11 +58,11 @@ export default function RoutingConfirm({ setStep, start, destination, routing, s
     const handleSpeak = useCallback((init: boolean, index: number, routing: IRouting) => {
         const text = `
             ${init ? "경로를 선택하세요. 위아래 스와이프로 경로를 선택할 수 있습니다." : ""}
-            ${index + 1}번 째 경로,
+            ${numberToKorean(index + 1)} 경로,
             ${routing.forwarding.length}개의 버스를 탑승하며,
             비용은 ${routing.fare}원,
             시간은 ${Math.round(parseFloat(routing.time) / 60)}분이 소요됩니다.
-            ${routing.forwarding.map((forwarding, index) => `${index + 1}번째 탑승 정류장: ${forwarding.fromStationNm}`).join(',')}
+            ${routing.forwarding.map((forwarding, index) => `${numberToKorean(index + 1)} 탑승 정류장: ${forwarding.fromStationNm}`).join(',')}
             왼쪽으로 스와이프하면 이 경로를 선택합니다.
         `;
         return SpeechOutputProvider.speak(text);
@@ -207,7 +208,7 @@ const RoutingInfo = styled.div`
 const ForwardingInfo = styled.h1` 
     text-align: center;
     margin-bottom: 8vw;
-    font-size: 6.5vw;
+    font-size: 8.5vw;
     font-weight: bold;
     cursor: pointer;
     user-select: none;
@@ -216,7 +217,7 @@ const ForwardingInfo = styled.h1`
 const CostInfo = styled.h3`
     margin-bottom: 8vw;
     text-align: center;
-    font-size: 4vw;
+    font-size: 6vw;
     font-weight: bold;
     cursor: pointer;
     user-select: none;
@@ -225,7 +226,7 @@ const CostInfo = styled.h3`
 const StationInfo = styled.h3`
     margin-bottom: 2vw;
     text-align: center;
-    font-size: 4vw;
+    font-size: 6vw;
     font-weight: bold;
     cursor: pointer;
     user-select: none;

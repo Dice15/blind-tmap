@@ -200,7 +200,7 @@ const WaitingDesInfo = styled.div`
 const StationName = styled.h1` 
     text-align: center;
     margin-bottom: 8vw;
-    font-size: 6.5vw;
+    font-size: 8.5vw;
     font-weight: bold;
     cursor: pointer;
     user-select: none;
@@ -209,7 +209,7 @@ const StationName = styled.h1`
 const StaitonVisMsg = styled.h3`
     margin-bottom: 5%;
     text-align: center;
-    font-size: 4vw;
+    font-size: 6vw;
     font-weight: bold;
     cursor: pointer;
     user-select: none;
