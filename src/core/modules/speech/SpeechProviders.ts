@@ -76,69 +76,79 @@ export class SpeechOutputProvider {
 
 
 
-
-
-
-
-
 /**
  * SpeechInputProvider 클래스는 SpeechRecognition API를 사용하여 음성 인식을 제공합니다.
  */
 export class SpeechInputProvider {
     private static recognition: SpeechRecognition | null = null;
+    private static timeoutId: number | null = null;
+    private static TIMEOUT_DURATION = 5000; // 5 seconds
+    private static onAutoStopCallback: (() => void) | null = null;
 
-
-    /**
-     * 생성자 메서드입니다. SpeechInputProvider 클래스의 인스턴스를 생성하지 않도록 private로 설정되어 있습니다.
-     */
     private constructor() { }
 
-
-
-    /**
-     * initializeRecognition 메서드는 SpeechRecognition 객체를 초기화합니다.
-     * 이 메서드는 음성 인식을 지원하지 않는 브라우저에서는 오류를 출력합니다.
-     */
     private static initializeRecognition(): void {
-        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const SpeechRecognition = window.SpeechRecognition || (window as any).webkitSpeechRecognition;
         if (SpeechRecognition) {
             this.recognition = new SpeechRecognition();
-            this.recognition.continuous = false;    // 연속적인 음성 인식을 사용
-            this.recognition.interimResults = false;    // 중간 결과를 반환
+            this.recognition.continuous = false;      // 연속적인 음성 인식을 사용
+            this.recognition.interimResults = false; // 중간 결과를 반환 여부
         } else {
             console.error('Speech recognition not supported in this browser.');
         }
     }
 
+    private static startAutoEnd(): void {
+        if (this.timeoutId !== null) {
+            clearTimeout(this.timeoutId);
+        }
+        this.timeoutId = window.setTimeout(() => {
+            this.stopRecognition();
+            if (this.onAutoStopCallback) {
+                this.onAutoStopCallback();
+            }
+        }, this.TIMEOUT_DURATION);
+    }
 
 
-    /**
-    * startRecognition 메서드는 음성 인식을 시작합니다.
-    * 인식된 음성 텍스트는 지정된 콜백 함수에 전달됩니다.
-    * @param {Function} onResult - 인식된 텍스트를 처리하는 콜백 함수입니다.
-    */
-    public static startRecognition(onResult: (result: string) => void): void {
+    private static removeAutoEnd(): void {
+        if (this.timeoutId !== null) {
+            clearTimeout(this.timeoutId);
+            this.timeoutId = null;
+        }
+    }
+
+
+    public static startRecognition({ onResult, onAutoStop }: { onResult: (result: string) => void, onAutoStop: () => void }): void {
         if (!this.recognition) {
             this.initializeRecognition();
         }
         if (this.recognition) {
+            this.onAutoStopCallback = onAutoStop;
+
             this.recognition.onresult = (event) => {
                 const transcript = Array.from(event.results)
                     .map(result => result[0])
                     .map(result => result.transcript)
                     .join('');
-                onResult(transcript);  // 결과를 반환하는 콜백 함수 호출
+                onResult(transcript);
             };
+
+            this.recognition.onspeechstart = () => {
+                this.removeAutoEnd();
+            };
+
+            this.startAutoEnd();
             this.recognition.start();
         }
     }
 
-
-
-    /**
-     * stopRecognition 메서드는 현재 진행 중인 음성 인식을 중지합니다.
-     */
     public static stopRecognition(): void {
+        if (this.timeoutId !== null) {
+            clearTimeout(this.timeoutId);
+            this.timeoutId = null;
+        }
+
         if (this.recognition) {
             this.recognition.stop();
         }

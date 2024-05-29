@@ -2,7 +2,7 @@
 
 import styled from "styled-components";
 import Image from 'next/image';
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { SpeechInputProvider, SpeechOutputProvider } from "@/core/modules/speech/SpeechProviders";
 import LoadingAnimation from "@/app/_components/LoadingAnimation";
 import { loadChat } from "../_functions/loadChat";
@@ -15,6 +15,10 @@ import { useSwipeable } from "react-swipeable";
 export default function ChatAdot() {
     // hook
     const router = useRouter();
+
+
+    // ref
+    const isRecognitionActive = useRef<Boolean>(false);
 
 
     // state
@@ -96,24 +100,24 @@ export default function ChatAdot() {
     }, [handleSendMessage]);
 
 
-    const handleSubmitSpeak = useCallback(() => {
-        const startAudio = new Audio('/sounds/voice_recognition_start.mp3');
-        const endAudio = new Audio('/sounds/voice_recognition_end.mp3');
-
+    const handleSubmitSpeak = useCallback((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        if (isRecognitionActive.current) return;
+        isRecognitionActive.current = true;
         VibrationProvider.vibrate(500);
         SpeechOutputProvider.stopSpeak();
-
-        startAudio.play().then(() => {
-            SpeechInputProvider.startRecognition((result: string) => {
-                const maxLength = 50;
+        SpeechInputProvider.startRecognition({
+            onResult: (result: string) => {
+                const maxLength = 100;
                 const inputText = Array.from(result).slice(0, maxLength).join('');
                 setUserMessage(inputText);
                 setGptMessage("");
                 handleSendMessage(inputText);
-                endAudio.play();
-            });
+                isRecognitionActive.current = false;
+            },
+            onAutoStop: () => {
+                isRecognitionActive.current = false;
+            },
         });
-
     }, [handleSendMessage]);
 
 
@@ -136,7 +140,6 @@ export default function ChatAdot() {
     }, [gptMessage])
 
 
-    // render
     return (!threadId ? <LoadingAnimation active={!threadId} /> :
         <Wrapper {...handleHorizontalSwipe}>
             < BackImage >
@@ -156,7 +159,7 @@ export default function ChatAdot() {
                     />
                 </TextInputField>
                 <SpeakInputField
-                    onClick={handleSubmitSpeak}>
+                    onClick={handleSubmitSpeak} >
                 </SpeakInputField>
             </MessageInputField>
         </Wrapper >
