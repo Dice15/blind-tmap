@@ -1,7 +1,7 @@
 {
-  "id": "BlindRoute",
-  "name": "BlindRoute",
-  "short_name": "BlindRoute",
+  "id": "BlindTMap",
+  "name": "BlindTMap",
+  "short_name": "BlindTMap",
   "theme_color": "#FAFAFA",
   "background_color": "#FAFAFA",
   "display": "standalone",

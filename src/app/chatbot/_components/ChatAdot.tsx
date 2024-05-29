@@ -97,16 +97,23 @@ export default function ChatAdot() {
 
 
     const handleSubmitSpeak = useCallback(() => {
+        const startAudio = new Audio('/sounds/voice_recognition_start.mp3');
+        const endAudio = new Audio('/sounds/voice_recognition_end.mp3');
+
         VibrationProvider.vibrate(500);
         SpeechOutputProvider.stopSpeak();
-        SpeechInputProvider.startRecognition((result: string) => {
-            const maxLength = 30;
-            const inputText = Array.from(result).slice(0, maxLength).join('');
-            setUserMessage(inputText);
-            setGptMessage("");
-            handleSendMessage(inputText);
-            if (inputText.length === maxLength) SpeechInputProvider.stopRecognition();
+
+        startAudio.play().then(() => {
+            SpeechInputProvider.startRecognition((result: string) => {
+                const maxLength = 50;
+                const inputText = Array.from(result).slice(0, maxLength).join('');
+                setUserMessage(inputText);
+                setGptMessage("");
+                handleSendMessage(inputText);
+                endAudio.play();
+            });
         });
+
     }, [handleSendMessage]);
 
 

@@ -24,7 +24,7 @@ function stepTitle(step: PathFinderStep): string {
         case "locationConfirm": return "출발지 및 도착지 확인";
         case "selectStart": return "출발지 선택";
         case "selectDestination": return "도착지 선택";
-        case "routingConfirm": return "경로 확인";
+        case "routingConfirm": return "경로 선택";
         case "reservationBusConfirm": return "버스 예약";
         case "waitingBus": return "버스 대기";
         case "reservationDesConfirm": return "하차 예약";
