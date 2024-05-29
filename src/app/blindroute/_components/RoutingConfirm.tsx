@@ -193,11 +193,10 @@ const FocusBlank = styled.div`
 `;
 
 const RoutingInfoContainer = styled.div`
-    height: 90%;
+    height: 92.5%;
     width: 85%;
-    border: 1px solid var(--main-border-color);
-    border-radius: 8px;
-    background-color: var(--main-color);
+    border: 0.7vw solid var(--main-border-color);
+    border-radius: 4vw;
     color: var(--main-font-color);
 `;
 

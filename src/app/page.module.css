@@ -5,13 +5,31 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-color: var(--main-color);
+}
+
+.title {
+    font-size: 10vw;
+    font-weight: 600;
+    margin-bottom: 4vw;
+    color: var(--main-font-color);
+    user-select: none;
+}
+
+.start {
+    height: 45vw;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .btnOps {
-    height: calc(calc(70vw * 0.3) - 4px);
+    height: 20vw;
     width: calc(85vw - 4px);
-    border: 2px solid var(--main-border-color);
-    margin-bottom: 7.5vw;
+    border: 1vw solid var(--main-border-color);
+    border-radius: 7.5vw;
     font-size: 6.5vw;
     font-weight: bold;
     cursor: pointer;
@@ -23,10 +41,6 @@
     cursor: pointer;
     background-color: var(--main-color);
     color: var(--main-font-color);
-}
-
-.btnAuth {
-    height: calc(calc(70vw * 0.3) - 4px);
 }
 
 .linkOps {

@@ -9,6 +9,7 @@ import { loadChat } from "../_functions/loadChat";
 import { sendMessage } from "../_functions/sendMessage";
 import { useRouter } from "next/navigation";
 import { VibrationProvider } from "@/core/modules/vibration/VibrationProvider";
+import { useSwipeable } from "react-swipeable";
 
 
 export default function ChatAdot() {
@@ -24,6 +25,21 @@ export default function ChatAdot() {
 
 
     // handler
+    const handleGoBack = useCallback(() => {
+        SpeechOutputProvider.speak(" ").then(() => {
+            router.replace('/');
+        });
+    }, [router]);
+
+
+    const handleHorizontalSwipe = useSwipeable({
+        onSwipedRight: useCallback(() => {
+            handleGoBack()
+        }, [handleGoBack]),
+        trackMouse: true
+    });
+
+
     const handleNavigation = useCallback((start: string, destination: string) => {
         const params = new URLSearchParams({
             start: start,
@@ -115,7 +131,7 @@ export default function ChatAdot() {
 
     // render
     return (!threadId ? <LoadingAnimation active={!threadId} /> :
-        <Wrapper>
+        <Wrapper {...handleHorizontalSwipe}>
             < BackImage >
                 <Image src="/images/chat_adot_background.png" alt="guide01" fill priority />
             </BackImage >

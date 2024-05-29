@@ -109,11 +109,10 @@ const FocusBlank = styled.div`
 `;
 
 const LocationInfoContainer = styled.div`
-    height: 90%;
+    height: 92.5%;
     width: 85%;
-    border: 1px solid var(--main-border-color);
-    border-radius: 8px;
-    background-color: var(--main-color);
+    border: 0.7vw solid var(--main-border-color);
+    border-radius: 4vw;
     color: var(--main-font-color);
 `;
 
@@ -129,7 +128,7 @@ const LocationInfo = styled.div`
 const LocationName = styled.h3`
     margin-bottom: 8vw;
     text-align: center;
-    font-size: 5vw;
+    font-size: 6vw;
     font-weight: bold;
     cursor: pointer;
     user-select: none;

@@ -152,14 +152,14 @@ export default function PathFinder() {
 const Wrapper = styled.div`
     height: 100%;
     width: 100%;
+    background-color: var(--main-color);
 `;
 
 const Title = styled.div`
-    height: 40px;
-    border-bottom: 1px dashed var(--main-border-color);
-    margin-bottom: 4px;
+    height: 10vw;
+    border-bottom: 0.25vw dashed var(--main-border-color);
     padding: 10px;
-    font-size: 8vw;
+    font-size: 7vw;
     font-weight: bold;
     text-align: center;
     cursor: pointer;
