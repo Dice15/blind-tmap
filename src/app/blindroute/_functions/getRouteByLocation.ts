@@ -1,5 +1,5 @@
-import { IRouting } from "@/core/type/IRouting";
-import { Station } from "@/core/type/Station";
+import { IRouting } from "@/models/IRouting";
+import IStation from "@/models/IStation";
 import axios from "axios";
 
 
@@ -11,7 +11,7 @@ type GetRouteResponse = {
 };
 
 
-export async function getRoute(start: Station, destination: Station): Promise<{
+export async function getRoute(start: IStation, destination: IStation): Promise<{
     msg: string;
     data: {
         routings: IRouting[];

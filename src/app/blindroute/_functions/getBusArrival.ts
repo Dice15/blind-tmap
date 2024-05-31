@@ -1,5 +1,5 @@
-import { IBusArrival } from "@/core/type/IBusArrival";
-import { IForwarding } from "@/core/type/IForwarding";
+import { IBusArrival } from "@/models/IBusArrival";
+import { IForwarding } from "@/models/IForwarding";
 import axios from "axios";
 
 

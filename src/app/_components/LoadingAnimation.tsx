@@ -5,17 +5,23 @@ import styled, { keyframes } from "styled-components";
 
 /** 로딩 애니메이션 컴포넌트 프로퍼티 */
 export interface LoadingAnimationProps {
-    active: boolean;
+  active: boolean;
+  invisibleBackground?: boolean;
 }
 
 
 /** 로딩 애니메이션 컴포넌트 */
-export default function LoadingAnimation({ active }: LoadingAnimationProps) {
-    return (
-        <Wrapper style={{ visibility: `${active ? "visible" : "hidden"}` }}>
-            <Loader />
-        </Wrapper>
-    );
+export default function LoadingAnimation({ active, invisibleBackground = false }: LoadingAnimationProps) {
+  return (
+    <Wrapper style={{
+      visibility: `${active ? "visible" : "hidden"}`,
+      ...(invisibleBackground && {
+        backgroundColor: "transparent"
+      })
+    }}>
+      <Loader />
+    </Wrapper>
+  );
 }
 
 
@@ -28,7 +34,7 @@ const Wrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 100;
+    z-index: 1000;
     background-color: rgba(70, 70, 70, 0.7);
 `;
 
@@ -42,7 +48,7 @@ const spin = keyframes`
 `;
 
 const Loader = styled.div`
-    border: 10px solid #f3f3f3;
+    border: 10px solid #00000032;
     border-top: 10px solid #2b2b2b;
     border-radius: 50%;
     width: 40px;

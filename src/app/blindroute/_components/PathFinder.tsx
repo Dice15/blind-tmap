@@ -2,18 +2,18 @@
 
 import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
-import { Station } from "@/core/type/Station";
 import SelectStart from "./SelectStart";
 import { useRouter, useSearchParams } from "next/navigation";
 import LocationConfirm from "./LocationConfirm";
 import SelectDestination from "./SelectDestination";
-import { IRouting } from "@/core/type/IRouting";
+import { IRouting } from "@/models/IRouting";
 import RoutingConfirm from "./RoutingConfirm";
 import ReservationBusConfirm from "./ReservationBusConfirm";
 import WaitingBus from "./WaitingBus";
 import ReservationDesConfirm from "./ReservationDesConfirm";
 import WaitingDestination from "./WaitingDestination";
 import { SpeechOutputProvider } from "@/core/modules/speech/SpeechProviders";
+import IStation from "@/models/IStation";
 
 
 export type PathFinderStep = "locationConfirm" | "selectStart" | "selectDestination" | "routingConfirm" | "reservationBusConfirm" | "waitingBus" | "reservationDesConfirm" | "waitingDestination";
@@ -43,8 +43,8 @@ export default function PathFinder() {
     // state
     const [step, setStep] = useState<PathFinderStep>("locationConfirm");
     const [locations, setLocations] = useState<{ start: string; destination: string; } | null>(null);
-    const [start, setStart] = useState<Station | null>(null);
-    const [destination, setDestination] = useState<Station | null>(null);
+    const [start, setStart] = useState<IStation | null>(null);
+    const [destination, setDestination] = useState<IStation | null>(null);
     const [routing, setRouting] = useState<IRouting | null>(null);
     const [forwardIndex, setForwardIndex] = useState<number>(0);
     const [onBoardVehId, setOnBoardVehId] = useState<string | null>(null);
@@ -78,7 +78,6 @@ export default function PathFinder() {
                     setStep={setStep}
                     start={start}
                     destination={destination}
-                    routing={routing}
                     setRouting={setRouting}
                     setForwardIndex={setForwardIndex}
                 />;

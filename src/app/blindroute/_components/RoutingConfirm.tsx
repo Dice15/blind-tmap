@@ -7,25 +7,24 @@ import 'swiper/css';
 import styled from "styled-components";
 import { PathFinderStep } from "./PathFinder";
 import { SpeechOutputProvider } from "@/core/modules/speech/SpeechProviders";
-import { Station } from "@/core/type/Station";
-import { IRouting } from "@/core/type/IRouting";
+import { IRouting } from "@/models/IRouting";
 import LoadingAnimation from "@/app/_components/LoadingAnimation";
 import { getRoute } from "../_functions/getRouteByLocation";
 import { VibrationProvider } from "@/core/modules/vibration/VibrationProvider";
 import { numberToKorean } from "../_functions/numberToKorean";
+import IStation from "@/models/IStation";
 
 
 interface RoutingConfirmProps {
     setStep: React.Dispatch<React.SetStateAction<PathFinderStep>>;
-    start: Station | null;
-    destination: Station | null;
-    routing: IRouting | null;
+    start: IStation | null;
+    destination: IStation | null;
     setRouting: React.Dispatch<React.SetStateAction<IRouting | null>>;
     setForwardIndex: React.Dispatch<React.SetStateAction<number>>
 }
 
 
-export default function RoutingConfirm({ setStep, start, destination, routing, setRouting, setForwardIndex }: RoutingConfirmProps) {
+export default function RoutingConfirm({ setStep, start, destination, setRouting, setForwardIndex }: RoutingConfirmProps) {
     // ref
     const LocationInfoContainerRef = useRef<HTMLDivElement>(null);
     const focusBlank = useRef<HTMLDivElement>(null);

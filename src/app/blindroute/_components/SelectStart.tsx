@@ -8,10 +8,10 @@ import 'swiper/css';
 import styled from "styled-components";
 import { SpeechOutputProvider } from "@/core/modules/speech/SpeechProviders";
 import { PathFinderStep } from "./PathFinder";
-import { Station } from "@/core/type/Station";
 import LoadingAnimation from "@/app/_components/LoadingAnimation";
 import { getBusStation } from "../_functions/getBusStationByName";
 import { VibrationProvider } from "@/core/modules/vibration/VibrationProvider";
+import IStation from "@/models/IStation";
 
 
 interface SelectStartProps {
@@ -20,7 +20,7 @@ interface SelectStartProps {
         destination: string;
     } | null;
     setStep: React.Dispatch<React.SetStateAction<PathFinderStep>>;
-    setStart: React.Dispatch<React.SetStateAction<Station | null>>
+    setStart: React.Dispatch<React.SetStateAction<IStation | null>>
 }
 
 
@@ -39,7 +39,7 @@ export default function SelectStart({ locations, setStep, setStart }: SelectStar
 
     // state
     const [isLoading, setIsLoading] = useState<boolean>(true);
-    const [stations, setStations] = useState<Station[]>([]);
+    const [stations, setStations] = useState<IStation[]>([]);
 
 
     // handler
@@ -58,7 +58,7 @@ export default function SelectStart({ locations, setStep, setStart }: SelectStar
     }, [setStart, setStep, stations]);
 
 
-    const handleSpeak = useCallback((init: boolean, station: Station) => {
+    const handleSpeak = useCallback((init: boolean, station: IStation) => {
         const text = `
             ${init ? "출발 정류장을 선택하세요. 위아래 스와이프로 정류장을 선택할 수 있습니다." : ""}
             ${station.stNm}, ${station.stDir} 방면.

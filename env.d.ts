@@ -13,5 +13,6 @@ namespace NodeJS {
         OPENAI_API_KEY: string;
         BLINDROUTE_ASSISTANT_V1: string;
         BLINDROUTE_ASSISTANT_V2: string;
+        TMAP_APP_KEY: string;
     }
 }

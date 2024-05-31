@@ -4,12 +4,11 @@ import styled from "styled-components";
 import Image from 'next/image';
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { SpeechInputProvider, SpeechOutputProvider } from "@/core/modules/speech/SpeechProviders";
-import LoadingAnimation from "@/app/_components/LoadingAnimation";
-import { loadChat } from "../_functions/loadChat";
-import { sendMessage } from "../_functions/sendMessage";
+import { getGptMessage } from "../_functions/getGptMessage";
 import { useRouter } from "next/navigation";
 import { VibrationProvider } from "@/core/modules/vibration/VibrationProvider";
 import { useSwipeable } from "react-swipeable";
+import LoadingAnimation from "@/app/_components/LoadingAnimation";
 
 
 export default function ChatAdot() {
@@ -22,10 +21,10 @@ export default function ChatAdot() {
 
 
     // state
-    const [threadId, setThreadId] = useState<string | null>(null);
     const [chatMode, setChatMode] = useState<"chat" | "blindroute">("chat");
     const [userMessage, setUserMessage] = useState<string | null>(null);
     const [gptMessage, setGptMessage] = useState<string | null>(null);
+    const [waitingGpt, setWaitingGpt] = useState<boolean>(false);
 
 
     // handler
@@ -54,10 +53,11 @@ export default function ChatAdot() {
 
 
     const handleSendMessage = useCallback((message: string) => {
-        if (!threadId) return;
         switch (chatMode) {
             case "chat": {
-                sendMessage(threadId, message, chatMode).then(async (value) => {
+                setWaitingGpt(true);
+                getGptMessage(message, chatMode).then(async (value) => {
+                    setWaitingGpt(false);
                     if (value.data.chatMode === "blindroute") {
                         setGptMessage("시각장애인 전용 길안내를 시작하겠습니다. 출발지와 목적지를 말해주세요.");
                         setChatMode("blindroute");
@@ -69,7 +69,9 @@ export default function ChatAdot() {
                 break;
             }
             case "blindroute": {
-                sendMessage(threadId, message, chatMode).then(async (value) => {
+                setWaitingGpt(true);
+                getGptMessage(message, chatMode).then(async (value) => {
+                    setWaitingGpt(false);
                     const route = value.data.message.split(',');
                     if (route.length === 2) {
                         handleNavigation(route[0], route[1]);
@@ -86,7 +88,8 @@ export default function ChatAdot() {
                 break;
             }
         }
-    }, [threadId, chatMode, handleNavigation]);
+
+    }, [chatMode, handleNavigation]);
 
 
     const handleSubmitText = useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -121,15 +124,23 @@ export default function ChatAdot() {
     }, [handleSendMessage]);
 
 
+    const handleTouchUserMessage = useCallback(() => {
+        if (userMessage && userMessage.length > 0) {
+            SpeechOutputProvider.speak(userMessage);
+        }
+    }, [userMessage]);
+
+
+    const handleTouchGptMessage = useCallback(() => {
+        if (gptMessage && gptMessage.length > 0) {
+            SpeechOutputProvider.speak(gptMessage);
+        }
+    }, [gptMessage]);
+
+
     // effect
     useEffect(() => {
-        loadChat()
-            .then(value => {
-                setThreadId(value.data.threadId);
-            })
-            .then(() => {
-                setGptMessage("안녕하세요! 무엇을 도와드릴까요?");
-            });
+        setGptMessage("안녕하세요! 무엇을 도와드릴까요?");
     }, []);
 
 
@@ -140,14 +151,20 @@ export default function ChatAdot() {
     }, [gptMessage])
 
 
-    return (!threadId ? <LoadingAnimation active={!threadId} /> :
+    return (
         <Wrapper {...handleHorizontalSwipe}>
-            < BackImage >
+            <LoadingAnimation active={waitingGpt} invisibleBackground={true} />
+            <BackImage >
                 <Image src="/images/chat_adot_background.png" alt="guide01" fill priority />
             </BackImage >
 
-            <UserMessage>{userMessage || ""}</UserMessage>
-            <ReturnMessage>{gptMessage || ""}</ReturnMessage>
+            <UserMessage onClick={handleTouchUserMessage}>
+                {userMessage || ""}
+            </UserMessage>
+
+            <ReturnMessage onClick={handleTouchGptMessage}>
+                {gptMessage || ""}
+            </ReturnMessage>
 
             <MessageInputField>
                 <TextInputField>

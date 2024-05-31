@@ -1,6 +1,6 @@
 import axios from "axios";
 
-type SendMessageResponse = {
+type GetGptMessageResponse = {
     msg: string;
     data: {
         message: string;
@@ -8,7 +8,7 @@ type SendMessageResponse = {
     }
 };
 
-export async function sendMessage(threadId: string, userMessage: string, chatMode: "chat" | "blindroute"): Promise<{
+export async function getGptMessage(userMessage: string, chatMode: "chat" | "blindroute"): Promise<{
     msg: string;
     data: {
         message: string;
@@ -16,10 +16,9 @@ export async function sendMessage(threadId: string, userMessage: string, chatMod
     }
 }> {
     try {
-        const response = await axios.post<SendMessageResponse>(
-            '/api/chat/sendMessage',
+        const response = await axios.post<GetGptMessageResponse>(
+            '/api/chat/getGptMessage',
             {
-                threadId: threadId,
                 userMessage: userMessage,
                 chatMode: chatMode
             }

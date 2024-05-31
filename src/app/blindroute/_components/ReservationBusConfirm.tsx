@@ -6,7 +6,7 @@ import 'swiper/css';
 import styled from "styled-components";
 import { PathFinderStep } from "./PathFinder";
 import { SpeechOutputProvider } from "@/core/modules/speech/SpeechProviders";
-import { IForwarding } from "@/core/type/IForwarding";
+import { IForwarding } from "@/models/IForwarding";
 import { VibrationProvider } from "@/core/modules/vibration/VibrationProvider";
 
 

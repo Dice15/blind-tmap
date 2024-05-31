@@ -1,4 +1,4 @@
-import IStation, { Station } from "@/core/type/Station";
+import IStation from "@/models/IStation";
 import axios from "axios";
 
 
@@ -13,7 +13,7 @@ type GetBusStationResponse = {
 export async function getBusStation(stationName: string): Promise<{
     msg: string;
     data: {
-        stations: Station[];
+        stations: IStation[];
     };
 }> {
     try {
@@ -21,10 +21,7 @@ export async function getBusStation(stationName: string): Promise<{
             params: { stationName },
         });
 
-        return {
-            msg: response.data.msg,
-            data: { stations: response.data.data.stations.map((item) => Station.fromObject(item)) }
-        };
+        return response.data;
     }
     catch (error) {
         console.error(error);

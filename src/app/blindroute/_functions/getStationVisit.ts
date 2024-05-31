@@ -1,6 +1,5 @@
-import { IForwarding } from "@/core/type/IForwarding";
-import { IStationVisit } from "@/core/type/IStationVisit";
-import IStation from "@/core/type/Station";
+import { IForwarding } from "@/models/IForwarding";
+import { IStationVisit } from "@/models/IStationVisit";
 import axios from "axios";
 
 
